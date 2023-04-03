@@ -3,3 +3,10 @@
 <%= button_to "Find Top Rated Movies", movies_path(@user), method: :get %><br>
 
 <h3>Viewing Parties:</h3>
+
+<% @user.viewing_parties.each do |vp| %>
+    Title: <%= vp.movie.title %>
+    Duration: <%= vp.duration %>
+    Date: <%= vp.date %>
+    Time: <%= vp.time %>
+<% end %>
