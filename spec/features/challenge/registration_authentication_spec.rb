@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Registration' do
   context 'Authentication Happy Path' do
-    scenario 'A visitor can register as a user with with authentication' do
+    scenario 'A visitor can register as a user with authentication' do
       visit register_path
 
       email = 'seansuga_135@gmail.com'
@@ -13,7 +13,7 @@ RSpec.describe 'Registration' do
       fill_in 'user[password]', with: password
       fill_in 'user[password_confirmation]', with: password
       click_on 'Create New User'
-# save_and_open_page
+
       expect(current_path).to eq(user_path(User.last.id))
     end
   end
