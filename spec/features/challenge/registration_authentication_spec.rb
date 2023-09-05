@@ -19,7 +19,7 @@ RSpec.describe 'Registration' do
   end
 
   context 'Authentication Sad Path' do
-    scenario 'A visitor cannot register as a useer with inncorrect authentication' do
+    scenario 'A visitor cannot register as a user with inncorrect authentication' do
       visit register_path
 
       email = 'seansuga_135@gmail.com'
@@ -28,7 +28,7 @@ RSpec.describe 'Registration' do
       fill_in 'user[name]', with: 'Sean'
       fill_in 'user[email]', with: email
       fill_in 'user[password]', with: password
-      fill_in 'user[password_confirmation]', with: ''
+      fill_in 'user[password_confirmation]', with: 'champ4lyfe'
       click_on 'Create New User'
 
       expect(current_path).to eq(register_path)
