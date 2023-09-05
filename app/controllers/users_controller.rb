@@ -1,25 +1,36 @@
 class UsersController <ApplicationController 
-  def new 
+  def new
     @user = User.new()
-  end 
+  end
 
-  def show 
+  def show
     @user = User.find(params[:id])
-  end 
+  end
 
-  def create 
-    user = User.create(user_params)
+  # def create
+  #   # require 'pry'; binding.pry
+  #   user = User.create!(user_params)
+  #   if user.save
+  #     redirect_to user_path(user)
+  #   else
+  #     flash[:error] = user.errors.full_messages.to_sentence
+  #     redirect_to register_path
+  #   end
+  # end
+
+  def create
+    user = User.new(user_params)
     if user.save
       redirect_to user_path(user)
-    else  
+    else
       flash[:error] = user.errors.full_messages.to_sentence
       redirect_to register_path
-    end 
-  end 
+    end
+  end
 
-  private 
+  private
 
-  def user_params 
-    params.require(:user).permit(:name, :email)
-  end 
-end 
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+end
