@@ -58,5 +58,16 @@ RSpec.describe 'Landing Page' do
       
       expect(current_path).to eq(user_path(user3.id))
     end
+
+    it 'sad path: cannot visit dashboard while user is not logged in' do
+      user = User.create!(name: "Rusty Shackleford", email: "Gribmeister@dalesdeadbug.net", password: "nobugsonme123", password_confirmation: "nobugsonme123")
+      visit '/'
+      save_and_open_page
+
+      click_on 'datboi@ohshitwaddup.com'
+
+      expect(current_path).to eq(login_path)
+      
+    end
   end
 end
