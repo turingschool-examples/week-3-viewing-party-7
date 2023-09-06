@@ -1,6 +1,7 @@
 <center>
+
 <% if current_user %>
-    <%= link_to "Log Out" %>
+    <%= link_to "Log Out", logout_path %>
 <% else %>
     <%= button_to "Create New User", register_path, method: :get %>
     <%= link_to "Log In", login_path %>
