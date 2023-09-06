@@ -17,7 +17,16 @@ class UsersController <ApplicationController
       flash[:error] = new_user.errors.full_messages.to_sentence
       redirect_to register_path
     end 
-  end 
+  end
+
+  def login_form
+  end
+
+  def login_user
+    user = User.find_by(email: params[:email])
+    flash[:success] = "Welcome, #{user.email}!"
+    redirect_to user_path(user.id)
+  end
 
   private 
 
