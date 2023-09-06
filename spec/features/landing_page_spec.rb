@@ -62,12 +62,20 @@ RSpec.describe 'Landing Page' do
     it 'sad path: cannot visit dashboard while user is not logged in' do
       user = User.create!(name: "Rusty Shackleford", email: "Gribmeister@dalesdeadbug.net", password: "nobugsonme123", password_confirmation: "nobugsonme123")
       visit '/'
-      save_and_open_page
-
-      click_on 'datboi@ohshitwaddup.com'
+      
+      click_on 'Gribmeister@dalesdeadbug.net'
 
       expect(current_path).to eq(login_path)
-      
+
+      fill_in :email, with: "Gribmeister@dalesdeadbug.net"
+      fill_in :password, with: "nobugsonme123"
+      click_on 'Log In'
+
+      expect(current_path).to eq(user_path(user.id))
+      #further testing to make sure conditional actually works
+      click_on "Home"
+      click_on "Gribmeister@dalesdeadbug.net"
+      expect(current_path).to eq(user_path(user.id))
     end
   end
 end
