@@ -1,22 +1,19 @@
 <center>
 
-<% if current_user %>
+<% if session[:user_id] %>
     <%= link_to "Log Out", logout_path %>
+
+    <section class='existing-users'>
+        <p>Existing Users: </p>
+        <% @users.each do |user| %>
+            <ul>
+                <li><%= "#{user.email}" %></li>
+            </ul>
+        <% end %>
+    </section>
+
 <% else %>
     <%= button_to "Create New User", register_path, method: :get %>
     <%= link_to "Log In", login_path %>
 <% end %>
-
-<section class='existing-users'>
-    <p>Existing Users: </p>
-    <% @users.each do |user| %>
-    <ul>
-        <% if current_user %>
-            <li><%= link_to user.email, user_path(user.id) %></li><br>
-        <% else %>
-            <%= link_to user.email, login_path %>
-        <% end %>
-    </ul>
-    <% end %>
-</section>
 </center>

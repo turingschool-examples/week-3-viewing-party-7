@@ -22,10 +22,15 @@ RSpec.describe 'Landing Page' do
     expect(current_path).to eq(root_path)
   end 
 
-  it 'lists out existing users' do 
+  it 'lists out existing users when logged in' do 
     user1 = User.create(name: "User One", email: "user1@test.com", password: "password", password_confirmation: "password")
     user2 = User.create(name: "User Two", email: "user2@test.com", password: "password", password_confirmation: "password")
-
+    visit '/'
+    click_link 'Log In'
+    fill_in :email, with: user1.email
+    fill_in :password, with: user1.password
+    click_on 'Log In'
+    click_on 'Home'
     expect(page).to have_content('Existing Users:')
 
     within('.existing-users') do 
@@ -34,48 +39,15 @@ RSpec.describe 'Landing Page' do
     end     
   end 
 
-
-  describe 'login' do 
-      #   As a registered user
-  # When I visit the landing page `/`
-  # I see a link for "Log In"
-  # When I click on "Log In"
-  # I'm taken to a Log In page ('/login') where I can input my unique email and password.
-  # When I enter my unique email and correct password 
-  # I'm taken to my dashboard page
-    it 'has a link to login' do
-      user3 = User.create!(name: "User One", email: "user3@test.com", password: "password", password_confirmation: "password")
-      visit '/'
-
-      expect(page).to have_link('Log In')
-      click_link 'Log In'
-
-      expect(current_path).to eq(login_path)
-
-      fill_in :email, with: "user3@test.com"
-      fill_in :password, with: "password"
-      click_on 'Log In'
-      
-      expect(current_path).to eq(user_path(user3.id))
-    end
-
-    it 'sad path: cannot visit dashboard while user is not logged in' do
-      user = User.create!(name: "Rusty Shackleford", email: "Gribmeister@dalesdeadbug.net", password: "nobugsonme123", password_confirmation: "nobugsonme123")
-      visit '/'
-      
-      click_on 'Gribmeister@dalesdeadbug.net'
-
-      expect(current_path).to eq(login_path)
-
-      fill_in :email, with: "Gribmeister@dalesdeadbug.net"
-      fill_in :password, with: "nobugsonme123"
-      click_on 'Log In'
-
-      expect(current_path).to eq(user_path(user.id))
-      #further testing to make sure conditional actually works
-      click_on "Home"
-      click_on "Gribmeister@dalesdeadbug.net"
-      expect(current_path).to eq(user_path(user.id))
-    end
+  it 'cannot log in with invalid credentials' do 
+    @user1 = User.create(name: "User One", email: "user1@test.com", password: "password", password_confirmation: "password")
+    visit '/'
+    click_link 'Log In'
+    fill_in :email, with: @user1.email
+    fill_in :password, with: 'wrongpassword'
+    click_on 'Log In'
+    expect(current_path).to eq(login_path)
   end
+
+  
 end

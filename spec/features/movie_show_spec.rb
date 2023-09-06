@@ -34,4 +34,15 @@ RSpec.describe 'Movies Index Page' do
     expect(page).to have_content(movie_1.description)
     expect(page).to have_content(movie_1.rating)
   end 
+
+  it 'does not allow visitors to create viewing party while logged out' do 
+    user_id = @user1.id
+    movie_id = Movie.first.id
+
+    visit "/users/#{user_id}/movies/#{movie_id}"
+
+    click_button "Create Viewing Party for Movie"
+
+    expect(current_path).to eq(login_path)
+  end
 end

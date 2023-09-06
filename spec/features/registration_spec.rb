@@ -10,7 +10,8 @@ RSpec.describe "User Registration" do
     fill_in :user_password_confirmation, with: 'password'
     click_button 'Create New User'
 
-    expect(current_path).to eq(user_path(User.last.id))
+    expect(current_path).to eq('/dashboard')
+    # expect(current_path).to eq(user_path(User.last.id)) #Changing routes broke this test
     expect(page).to have_content("User One's Dashboard")
   end 
 
