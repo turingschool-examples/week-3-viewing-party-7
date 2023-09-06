@@ -52,7 +52,7 @@ RSpec.describe "User Registration" do
     click_button 'Create New User'
 
     expect(current_path).to eq(register_path)
-    save_and_open_page
+
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
 end
