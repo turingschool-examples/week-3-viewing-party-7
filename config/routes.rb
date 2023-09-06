@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :movies do 
     resources :viewing_parties, only: [:new, :create]
   end
-
+  get '/no_show', to: 'movies#no_show'
   # resources :users, only: :show, path: '/dashboard'
   get '/dashboard', to: 'users#show'
 

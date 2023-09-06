@@ -41,8 +41,9 @@ RSpec.describe 'Movies Index Page' do
 
     visit "/users/#{user_id}/movies/#{movie_id}"
 
-    click_button "Create Viewing Party for Movie"
+    click_button "Create Viewing Party for Movie 1 Title"
 
-    expect(current_path).to eq(login_path)
+    expect(current_path).to eq(no_show_path)
+    expect(page).to have_content("You must be logged in or registered to create a movie party.")
   end
 end
