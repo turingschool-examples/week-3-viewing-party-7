@@ -26,4 +26,61 @@ RSpec.describe "User Registration" do
     expect(current_path).to eq(register_path)
     expect(page).to have_content("Email has already been taken")
   end
+
+  it "I'm redirected back to the /register page if I don't fill in the name field" do
+    visit register_path
+
+    fill_in :user_email, with:'user1@example.com'
+    fill_in :user_password, with: "1234"
+    fill_in :user_password_confirmation, with: "1234"
+    click_button 'Create New User'
+
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Name can't be blank")
+  end
+  
+  it "I'm redirected back to the /register page if I don't fill in the email field" do
+    visit register_path
+
+    fill_in :user_name, with: 'User One'
+    fill_in :user_password, with: "1234"
+    fill_in :user_password_confirmation, with: "1234"
+    click_button 'Create New User'
+
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Email can't be blank")
+  end
+
+  it "I'm redirected back to the /register page if I don't fill in the password field" do
+    visit register_path
+
+    fill_in :user_name, with: 'User One'
+    fill_in :user_email, with:'user1@example.com'
+    fill_in :user_password_confirmation, with: "1234"
+    click_button 'Create New User'
+
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Password can't be blank")
+  end
+  
+  it "I'm redirected back to the /register page if I don't fill in the password confirmation field/password confirmation field is different" do
+    visit register_path
+
+    fill_in :user_name, with: 'User One'
+    fill_in :user_email, with:'user1@example.com'
+    fill_in :user_password, with: "1234"
+    click_button 'Create New User'
+
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Password confirmation doesn't match Password")
+
+    fill_in :user_name, with: 'User One'
+    fill_in :user_email, with:'user1@example.com'
+    fill_in :user_password, with: "1234"
+    fill_in :user_password_confirmation, with: "5678"
+    click_button 'Create New User'
+
+    expect(current_path).to eq(register_path)
+    expect(page).to have_content("Password confirmation doesn't match Password")
+  end
 end
