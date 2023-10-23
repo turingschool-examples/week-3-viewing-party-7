@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :users, only: :show
 
+  get "/login", to: "users#login_form"
+
   get '/users/:user_id/movies/:movie_id/viewing_parties/new', to: 'viewing_parties#new'
   post '/users/:user_id/movies/:movie_id/viewing_parties', to: 'viewing_parties#create'
 end
