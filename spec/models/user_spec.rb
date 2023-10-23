@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
     it { should have_secure_password}
   end
 
-  describe 'has atrributes' do
+  it 'has atrributes' do
     user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
 
     expect(user).to_not have_attribute(:password)
