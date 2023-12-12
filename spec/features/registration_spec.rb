@@ -31,12 +31,7 @@ RSpec.describe "User Registration" do
   end
 
   it "does not create a user if the passwords don't match" do
-#   As a visitor 
-# When I visit `/register`
-# I see a form to fill in my name, email, password, and password confirmation.
-# When I fill in that form with my name, email, and matching passwords,
-# I'm taken to my dashboard page `/users/:id`
-    User.create(name: 'User One', email: 'otunique@example.com', password: "password", password_confirmation: "antipassword")
+    # User.create(name: 'User One', email: 'otunique@example.com', password: "password", password_confirmation: "antipassword")
     visit register_path
 
     fill_in :user_name, with: 'User Two'

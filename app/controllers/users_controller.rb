@@ -18,7 +18,19 @@ class UsersController <ApplicationController
       flash[:error] = new_user.errors.full_messages.to_sentence
       redirect_to register_path
     end 
-  end 
+  end
+
+  def login_form; end 
+
+  def login
+    user = User.find_by(email: params[:email])
+    if user.authenticate(params[:password])
+      redirect_to user_path(user.id)
+    else
+      flash[:error] = "Bzzt, wrongo, try again."
+      render :login_form
+    end
+  end
 
   private 
 
